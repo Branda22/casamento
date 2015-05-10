@@ -1,0 +1,17 @@
+{
+  "name": "casamento",
+  "version": "1.0.0",
+  "description": "my wedding guests",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.12.3",
+    "express": "^4.12.3",
+    "express-session": "^1.11.1",
+    "pg": "^4.3.0"
+  }
+}

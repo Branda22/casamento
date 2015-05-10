@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Casamento Maira e Christian | LOGIN</title>
+    <link rel="stylesheet" type="text/css" href="components/bootstrap/dist/css/bootstrap.min.css">
+  </head>
+  <body>
+	  <nav class="navbar navbar-default">
+	    <div class="container-fluid">
+	      <a class="navbar-brand">Sistema de Convidados para o casamento de Maira & Christian</a>
+	    </div> 
+	  </nav>
+  	<div class="row">
+  		<div class="col-md-4"></div>
+  		<div class="col-md-4">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">Login</h3>
+				</div>
+				<div class="panel-body">
+					<form action="/api/auth" id="login-form" method="post">
+						<div class="form-group">
+							<div class="input-group">
+								<div class="input-group-addon">email</div>
+									<input name="email" type="email" class="form-control" id="email-login" >
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="input-group">
+								<div class="input-group-addon">senha</div>
+									<input name="hash" type="password" class="form-control" id="password-login" >
+							</div>
+						</div>
+						<button type="submit" class="btn btn-primary">Login</button>
+					</form>
+				</div>
+			</div>
+  		</div>
+  		<div class="col-md-4"></div>
+  	</div>
+    <script src="components/jquery/dist/jquery.min.js"></script>
+    <script src="components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="scripts/login.js"></script>
+  </body>
+</html>

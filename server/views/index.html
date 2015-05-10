@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Casamento Maira e Christian</title>
+    <link rel="stylesheet" type="text/css" href="components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="components/style.css">
+  </head>
+  <body>
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <a class="navbar-brand">Sistema de Convidados para o casamento de Maira & Christian</a>
+      <button id="new-guest-btn" type="button" class="btn btn-default navbar-btn">Novo Convidado</button>
+      <div id="counter"class="nav navbar-nav navbar-right">
+        <button class="btn btn-primary" id="total">TOTAL <span class="badge">0</span></button>
+        <button class="btn btn-success" id="count-sim">SIM <span class="badge">0</span></button>
+        <button class="btn btn-warning" id="count-talvez">TALVEZ <span class="badge">0</span></button>
+        <button class="btn btn-danger"  id="count-nao">NÃO <span class="badge">0</span></button>
+        <button class="btn btn-default">
+        <a class="red" href="/api/auth/logout">Logout</a>
+        <span class="glyphicon glyphicon-log-out red" aria-hidden="true"></span>
+        </button>
+      </div>
+    </div> 
+  </nav>
+  <div class="row" id="guest-form">
+    <div class="col-md-3"></div>  
+    <div class="col-md-6">
+      <form>
+      <div class="form-group">
+        <label for="nome">Nome Completo</label>
+        <input type="text" class="form-control" id="nome" placeholder="Nome Completo">
+      </div>
+      <div class="form-group">
+        <label for="endereco">Endereço</label>
+        <input type="text" class="form-control" id="endereco" placeholder="Endereço">
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" class="form-control" id="email" placeholder="email">
+      </div>
+      <div class="form-group">
+        <label for="email">Numero de Telefone</label>
+        <input type="text" class="form-control" id="phone" placeholder="# Telefone">
+      </div>
+      <div class="form-group">
+        <label for="convidados">Numero de Convidados</label>
+        <input type="text" class="form-control" id="convidados" placeholder="# Convidados">
+      </div>
+      <div class="form-group">
+        <label for="presenca">Presença</label>
+        <select class="form-control" id="presenca">
+          <option value="sim">SIM</option>
+          <option value="nao">NÃO</option>
+          <option value="talvez">TALVEZ</option>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-primary">
+        Enviar
+        <span class="glyphicon glyphicon-send" aria-hidden="true"></span>
+      </button>
+      </form>
+    </div>  
+    <div class="col-md-3"></div>  
+
+  </div>
+  <div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-9">
+      <table id="guest-table" class="table table-bordered">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Nome</th>
+          <th>Endereço</th>
+          <th>Email</th>
+          <th># Telefone</th>
+          <th># Convidados</th>
+          <th>Presença</th>
+          <th>Remover</th>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+      </table>
+    </div>
+    <div class="col-md-1"></div>
+
+
+  </div>
+    <script src="components/jquery/dist/jquery.min.js"></script>
+    <script src="components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="scripts/app.js"></script>
+  </body>
+</html>
