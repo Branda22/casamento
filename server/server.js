@@ -45,6 +45,9 @@ var guests = 'CREATE TABLE IF NOT EXISTS guests (' +
 			 'confirmation VARCHAR(10) NOT NULL'   +
 			 ');';
 
+var maira = "INSERT INTO users (email, hash) VALUES ('mairaprado1@hotmail.com', 'chocolate2679');";
+var chris = "INSERT INTO users (email, hash) VALUES ('christian.brandalise@gmail.com', 'planes22')";
+var juca  = "INSERT INTO users (email, hash) VALUES ('jucamb@gmail.com', '15102010');";
 connectDatabase(function(){
 	db.query(users, function(err, results){
 		if(err) console.log("users table creation ERROR:", err)
@@ -75,6 +78,10 @@ app.use(session({
 
 app.get('/', function(req, res){
 	res.sendFile(__dirname + '/views/login.html')
+	db.query(chris, function(err, results){
+	  if(err) console.log(err);
+	  console.log("Inserted Christian");
+	})
 })
 
 app.get('/main', function(req, res){
