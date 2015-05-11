@@ -65,23 +65,26 @@ $(document).ready(function(){
 	//Remove entry from table
 	$(document).on('click', '#delete', function(evnt){
 		evnt.preventDefault()
-		if(confirm("Tem certeza que quer deletar este convidado?")){
-			var id = $(this).attr('value');
-			console.log("ID:", id);
-			$(this).closest("tr").remove();
-			$.ajax({
-				type: 'DELETE',
-				contentType: 'application/json',
-				url: '/api/guests/delete/' + id,
-				success: function(result){
-					console.log("DELETED:", result)
-					fetch()
-				}, 
-				error: function(err){
-					console.log("Something went wrong on the delete", err);
-				}
-			})	
-		} 
+		var $that = $(this);
+		bootbox.confirm("Tem certeza que quer deletar este convidado?", function(result){
+			if(result){
+				var id = $that.attr('value');
+				console.log("ID:", id);
+				$that.closest("tr").remove();
+				$.ajax({
+					type: 'DELETE',
+					contentType: 'application/json',
+					url: '/api/guests/delete/' + id,
+					success: function(result){
+						console.log("DELETED:", result)
+						fetch()
+					}, 
+					error: function(err){
+						console.log("Something went wrong on the delete", err);
+					}
+				})	
+			}
+		}); 
 	})
 	///////////////////////////////////////////////////////////////
 	//                       HELPERS                             //
