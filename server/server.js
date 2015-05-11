@@ -46,9 +46,7 @@ var guests = 'CREATE TABLE IF NOT EXISTS guests (' +
 			 'confirmation VARCHAR(10) NOT NULL'   +
 			 ');';
 
-// var maira = "INSERT INTO users (email, hash) VALUES ('mairaprado1@hotmail.com', 'chocolate2679');";
-// var chris = "INSERT INTO users (email, hash) VALUES ('christian.brandalise@gmail.com', 'planes22');";
-// var juca  = "INSERT INTO users (email, hash) VALUES ('jucamb@gmail.com', '15102010');";
+
 connectDatabase(function(){
 	db.query(users, function(err, results){
 		if(err) console.log("users table creation ERROR:", err)
@@ -146,6 +144,20 @@ app.post('/api/guests', function(req, res){
 	} else {
 		res.status(401).json({
 			message: 'not authorized!'
+		})
+	}
+})
+
+app.delete('/api/guests/delete/:id', function(req, res){
+	if(req.session.email){
+		db.query("DELETE FROM guests WHERE id = $1", [req.params.id], function(err, result){
+			if(err){
+				console.log("DELETE ERROR:", err)
+			} else {
+				res.status(200).json({
+					message: "Convidado deletado"
+				})
+			}
 		})
 	}
 })

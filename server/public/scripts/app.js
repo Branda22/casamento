@@ -51,7 +51,6 @@ $(document).ready(function(){
 			}
 		})
 
-		//Remove entry from table
 
 		//reset form values and hide form after sumbission
     	$("#nome").val("");
@@ -63,11 +62,26 @@ $(document).ready(function(){
 		$("#guest-form").fadeOut();
 	})
 
+	//Remove entry from table
 	$(document).on('click', '#delete', function(evnt){
 		evnt.preventDefault()
-		var id = $(this).closest("tr").attr('id');
-		console.log("ID:", id);
-		$(this).closest("tr").remove();
+		if(confirm("Tem certeza que quer deletar este convidado?")){
+			var id = $(this).attr('value');
+			console.log("ID:", id);
+			$(this).closest("tr").remove();
+			$.ajax({
+				type: 'DELETE',
+				contentType: 'application/json',
+				url: '/api/guests/delete/' + id,
+				success: function(result){
+					console.log("DELETED:", result)
+					fetch()
+				}, 
+				error: function(err){
+					console.log("Something went wrong on the delete", err);
+				}
+			})	
+		} 
 	})
 	///////////////////////////////////////////////////////////////
 	//                       HELPERS                             //
@@ -81,14 +95,14 @@ $(document).ready(function(){
 		}
 		$("#guest-table tbody").append(
 		'<tr class="'+ context[guestData["confirmation"]]+ '">' +
-          "<td id='id'>" + id + "</td>" +
+          '<td value="' + id + '" id="id">' + id + '</td>' +
           "<td>" + guestData["name"] + "</td>" +
           "<td>" + guestData["address"] +"</td>" +
           "<td>" + guestData["email"] + "</td>" +
           "<td>" + guestData["phone"] + "</td>" +
           "<td>" + guestData["guests"] + "</td>" +
           "<td>" + guestData["confirmation"] + "</td>" +
-          '<td id="delete"><span class="glyphicon glyphicon-trash red"></span></td>' +
+          '<td value="' + id + '" id="delete"><span class="glyphicon glyphicon-trash red"></span></td>' +
         "</tr>").slideDown("slow");
 	}
 
@@ -98,10 +112,13 @@ $(document).ready(function(){
 			length: results.length,
 			yes: [],
 			no: [],
-			maybe:[]
+			maybe:[],
+			totalGuests: 0
 		}
 		
 		results.forEach(function(guest){
+			confirmation.totalGuests += parseInt(guest.guests);
+			console.log("Total Guests: ", confirmation.totalGuests);
 			if(guest.confirmation === "SIM"){
 				confirmation.yes.push(guest)
 			} else if(guest.confirmation === "NAO"){
@@ -115,7 +132,7 @@ $(document).ready(function(){
 
 	//appends filtered results to navbar
 	function appendToNavbar(results){
-		$('#total span').text(results.length)
+		$('#total span').text(results.totalGuests)
 		$('#count-sim span').text(results.yes.length)
 		$('#count-nao span').text(results.no.length)
 		$('#count-talvez span').text(results.maybe.length)
