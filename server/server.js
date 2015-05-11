@@ -3,6 +3,7 @@ var app = express();
 var pg = require('pg');
 var bodyParser = require('body-parser')
 var session = require('express-session')
+var path = require('path')
 
 /////////////////////////////////////////////////////////////////////
 //                          DB CONNECTION                          //
@@ -65,7 +66,8 @@ connectDatabase(function(){
 /////////////////////////////////////////////////////////////////////
 
 app.use(bodyParser());
-app.use(express.static(__dirname + '/public'));
+// app.use(express.static(__dirname + '/public'));
+app.use(express.static(path.join(__dirname, '/public')));
 app.use(session({
   secret: '18012013',
   resave: false,
