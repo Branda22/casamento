@@ -4,7 +4,8 @@
   "description": "my wedding guests",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "bower install"
   },
   "author": "",
   "license": "ISC",
@@ -14,7 +15,6 @@
     "express-session": "^1.11.1",
     "pg": "^4.3.0"
   },
-  "postinstall": "bower install",
   "engines": {
     "node": "0.10.x"
   },
