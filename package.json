@@ -21,5 +21,8 @@
   "keywords": [
     "wedding",
     "heroku"
-  ]
+  ],
+  "dependencies": {
+    "bower": "^1.3.12"
+  }
 }
