@@ -5,7 +5,7 @@ $(document).ready(function(){
 		$.ajax({
 			type: "GET",
 			contentType: 'application/json',
-			url: 'http://localhost:3000/api/guests',
+			url: '/api/guests',
 			success: function(results){
 				var filter = filterData(results)
 				appendToNavbar(filter);
@@ -39,7 +39,7 @@ $(document).ready(function(){
 		$.ajax({
 			type: "POST",
 			contentType: 'application/json',
-			url: 'http://localhost:3000/api/guests',
+			url: '/api/guests',
 			data: JSON.stringify(guestData),
 			success: function(result){
 				//append data to table immediatelly
