@@ -14,5 +14,12 @@
     "express-session": "^1.11.1",
     "pg": "^4.3.0"
   },
-  "postinstall": "bower install"
+  "postinstall": "bower install",
+  "engines": {
+    "node": "0.10.x"
+  },
+  "keywords": [
+    "wedding",
+    "heroku"
+  ]
 }
