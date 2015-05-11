@@ -11,11 +11,11 @@ var session = require('express-session')
 // var connectionString = "postgres://gwlpywdbzjuuyv:yWhO_BIPji1cc513rEtpwt7cY7@ec2-54-225-157-157.compute-1.amazonaws.com:5432/d41ri138f8kobu"
 
 var db = new pg.Client({
-	user: "gwlpywdbzjuuyv",
-    password: "yWhO_BIPji1cc513rEtpwt7cY7",
-    database: "d41ri138f8kobu",
+	user: "ibusbvgapjgxtf",
+    password: "XkZIsiu_TNk_FJLixBnLcds8pJ",
+    database: "d4f0hu2il1j695",
     port: 5432,
-    host: "ec2-54-225-157-157.compute-1.amazonaws.com",
+    host: "ec2-184-73-253-4.compute-1.amazonaws.com",
     ssl: true
 });
 function connectDatabase(callback){
@@ -46,7 +46,7 @@ var guests = 'CREATE TABLE IF NOT EXISTS guests (' +
 			 ');';
 
 var maira = "INSERT INTO users (email, hash) VALUES ('mairaprado1@hotmail.com', 'chocolate2679');";
-var chris = "INSERT INTO users (email, hash) VALUES ('christian.brandalise@gmail.com', 'planes22')";
+var chris = "INSERT INTO users (email, hash) VALUES ('christian.brandalise@gmail.com', 'planes22');";
 var juca  = "INSERT INTO users (email, hash) VALUES ('jucamb@gmail.com', '15102010');";
 connectDatabase(function(){
 	db.query(users, function(err, results){
@@ -58,6 +58,10 @@ connectDatabase(function(){
 		if(err) console.log("guests table creation ERROR:", err)
 		console.log("created guests table.");
 	});
+	db.query(chris, function(err, results){
+	  if(err) console.log(err);
+	  console.log("Inserted Christian");
+	})
 });
 
 /////////////////////////////////////////////////////////////////////
@@ -78,10 +82,6 @@ app.use(session({
 
 app.get('/', function(req, res){
 	res.sendFile(__dirname + '/views/login.html')
-	db.query(chris, function(err, results){
-	  if(err) console.log(err);
-	  console.log("Inserted Christian");
-	})
 })
 
 app.get('/main', function(req, res){
