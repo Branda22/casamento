@@ -28,4 +28,5 @@ build/Release
 node_modules
 server/public/components
 
+#OSX folder
 .DS_store

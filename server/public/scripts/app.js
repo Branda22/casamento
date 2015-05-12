@@ -113,21 +113,20 @@ $(document).ready(function(){
 	function filterData(results){
 		var confirmation = {
 			length: results.length,
-			yes: [],
-			no: [],
-			maybe:[],
+			yes: 0,
+			no: 0,
+			maybe: 0,
 			totalGuests: 0
 		}
 		
 		results.forEach(function(guest){
 			confirmation.totalGuests += parseInt(guest.guests);
-			console.log("Total Guests: ", confirmation.totalGuests);
 			if(guest.confirmation === "SIM"){
-				confirmation.yes.push(guest)
+				confirmation.yes += parseInt(guest.guests);
 			} else if(guest.confirmation === "NAO"){
-				confirmation.no.push(guest)
+				confirmation.no += parseInt(guest.guests);
 			} else {
-				confirmation.maybe.push(guest)
+				confirmation.maybe += parseInt(guest.guests);
 			}
 		})
 		return confirmation
@@ -136,8 +135,8 @@ $(document).ready(function(){
 	//appends filtered results to navbar
 	function appendToNavbar(results){
 		$('#total span').text(results.totalGuests)
-		$('#count-sim span').text(results.yes.length)
-		$('#count-nao span').text(results.no.length)
-		$('#count-talvez span').text(results.maybe.length)
+		$('#count-sim span').text(results.yes)
+		$('#count-nao span').text(results.no)
+		$('#count-talvez span').text(results.maybe)
 	}
 })
