@@ -7,11 +7,16 @@ $(document).ready(function(){
 			contentType: 'application/json',
 			url: '/api/guests',
 			success: function(results){
-				var filter = filterData(results)
-				appendToNavbar(filter);
-				results.forEach(function(guest){
-					appendToTable(guest.id, guest);
-				})
+				var count = 0
+				console.log("RESULTS", results);
+				if(results){
+					var filter = filterData(results)
+					appendToNavbar(filter);
+					results.forEach(function(guest){
+						count++;
+						appendToTable(guest.id, guest, count);
+					})		
+				}
 			}
 		})	
 	}
@@ -33,8 +38,10 @@ $(document).ready(function(){
 			email: $("#email").val(),
 			phone: $("#phone").val(),
 			guests: $("#convidados").val(),
+			owner: localStorage.getItem('email'),
 			confirmation: $("#presenca").val().toUpperCase()
 		}
+		console.log("guest data:", guestData);
 
 		$.ajax({
 			type: "POST",
@@ -90,7 +97,7 @@ $(document).ready(function(){
 	//                       HELPERS                             //
 	//////////////////////////////////////////////////////////////
 	
-	function appendToTable(id, guestData){
+	function appendToTable(id, guestData, num){
 		var context = {
 			"SIM": "success",
 			"NAO": "danger",
@@ -98,12 +105,13 @@ $(document).ready(function(){
 		}
 		$("#guest-table tbody").append(
 		'<tr class="'+ context[guestData["confirmation"]]+ '">' +
-          '<td value="' + id + '" id="id">' + id + '</td>' +
+          '<td value="' + num + '" id="id">' + num + '</td>' +
           "<td>" + guestData["name"] + "</td>" +
           "<td>" + guestData["address"] +"</td>" +
           "<td>" + guestData["email"] + "</td>" +
           "<td>" + guestData["phone"] + "</td>" +
           "<td>" + guestData["guests"] + "</td>" +
+          "<td>" + guestData["owner"] + "</td>" +
           "<td>" + guestData["confirmation"] + "</td>" +
           '<td value="' + id + '" id="delete"><span class="glyphicon glyphicon-trash red"></span></td>' +
         "</tr>").slideDown("slow");

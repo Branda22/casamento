@@ -43,7 +43,8 @@ var guests = 'CREATE TABLE IF NOT EXISTS guests (' +
 			 'email VARCHAR(255),'                 +
 			 'phone VARCHAR(255),'                 +
 			 'guests INTEGER,'					   +
-			 'confirmation VARCHAR(10) NOT NULL'   +
+			 'confirmation VARCHAR(10) NOT NULL,'  +
+			 'owner VARCHAR(255) NOT NULL'         +
 			 ');';
 
 
@@ -137,8 +138,8 @@ app.get('/api/guests', function(req, res){
 
 app.post('/api/guests', function(req, res){
 	if(req.session.email){
-		db.query("INSERT INTO guests (name, address, email, phone, guests, confirmation) VALUES ($1, $2, $3, $4, $5, $6) RETURNING id", 
-		[req.body.name, req.body.address, req.body.email, req.body.phone, req.body.guests, req.body.confirmation], function(err, result){
+		db.query("INSERT INTO guests (name, address, email, phone, guests, owner, confirmation ) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING id", 
+		[req.body.name, req.body.address, req.body.email, req.body.phone, req.body.guests, req.body.owner, req.body.confirmation], function(err, result){
 			res.status(201).json(result.rows[0])
 		})
 	} else {
