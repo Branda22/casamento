@@ -38,7 +38,7 @@ $(document).ready(function(){
 			email: $("#email").val(),
 			phone: $("#phone").val(),
 			guests: $("#convidados").val(),
-			owner: localStorage.getItem('email'),
+			owner: $("#convidado_por").val(),
 			confirmation: $("#presenca").val().toUpperCase()
 		}
 		console.log("guest data:", guestData);
