@@ -114,6 +114,7 @@ $(document).ready(function(){
           "<td>" + guestData["owner"] + "</td>" +
           "<td>" + guestData["confirmation"] + "</td>" +
           '<td value="' + id + '" id="delete"><span class="glyphicon glyphicon-trash red"></span></td>' +
+          '<td value="' + id + '" id="delete"><span class="glyphicon glyphicon-pencil red"></span></td>' +
         "</tr>").slideDown("slow");
 	}
 
