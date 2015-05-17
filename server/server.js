@@ -77,17 +77,25 @@ app.use(session({
 //                          ROUTES                                 //
 /////////////////////////////////////////////////////////////////////
 
+/////////////////////////////////////////////////////////////////////
+//                          STATIC                                 //
+/////////////////////////////////////////////////////////////////////
+
 app.get('/', function(req, res){
 	res.sendFile(__dirname + '/views/login.html')
 })
 
 app.get('/main', function(req, res){
 	if(req.session.email){
-		res.sendFile(__dirname + '/views/index.html')	
+		res.sendFile(__dirname + '/views/index.html')
 	} else {
 		res.redirect('/');
 	}
 })
+
+/////////////////////////////////////////////////////////////////////
+//                          AUTHENTICATION                         //
+/////////////////////////////////////////////////////////////////////
 
 app.post('/api/auth', function(req, res){
 	console.log(req.body.email, req.body.hash)
@@ -118,6 +126,10 @@ app.get('/api/auth/logout', function(req, res){
 	}
 })
 
+/////////////////////////////////////////////////////////////////////
+//                          GUESTS                                 //
+/////////////////////////////////////////////////////////////////////
+
 app.get('/api/guests', function(req, res){
 	if(req.session.email){
 		db.query("SELECT * FROM guests", function(err, result){
@@ -128,7 +140,7 @@ app.get('/api/guests', function(req, res){
 					message: "ERROR - Nothing found"
 				})
 			}
-		})		
+		})
 	} else {
 		res.status(401).json({
 			message: 'not authorized!'
@@ -138,7 +150,7 @@ app.get('/api/guests', function(req, res){
 
 app.post('/api/guests', function(req, res){
 	if(req.session.email){
-		db.query("INSERT INTO guests (name, address, email, phone, guests, owner, confirmation ) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING id", 
+		db.query("INSERT INTO guests (name, address, email, phone, guests, owner, confirmation ) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING id",
 		[req.body.name, req.body.address, req.body.email, req.body.phone, req.body.guests, req.body.owner, req.body.confirmation], function(err, result){
 			res.status(201).json(result.rows[0])
 		})
@@ -159,7 +171,7 @@ app.get('/api/guests/:id', function(req, res){
 					message: "ERROR - Nothing found"
 				})
 			}
-		})		
+		})
 	} else {
 		res.status(401).json({
 			message: 'not authorized!'
@@ -171,7 +183,7 @@ app.put('/api/guests/:id/edit', function(req, res){
 	console.log("REQUEST PARAMS", req.params);
 	console.log("REQUEST BODY", req.body)
 	if(req.session.email){
-		db.query("UPDATE guests SET name = $1, address = $2, email = $3, phone = $4, guests = $5, owner = $6, confirmation = $7 WHERE id = $8", 
+		db.query("UPDATE guests SET name = $1, address = $2, email = $3, phone = $4, guests = $5, owner = $6, confirmation = $7 WHERE id = $8",
 		[req.body.name, req.body.address, req.body.email, req.body.phone, req.body.guests, req.body.owner, req.body.confirmation, req.params.id], function(err, result){
 			if(err){
 				console.log("PUT ERROR:", err);
