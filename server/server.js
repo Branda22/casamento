@@ -149,6 +149,39 @@ app.post('/api/guests', function(req, res){
 	}
 })
 
+app.get('/api/guests/:id', function(req, res){
+	if(req.session.email){
+		db.query("SELECT * FROM guests WHERE id = $1", [req.params.id], function(err, result){
+			if(result && result.rows.length > 0){
+				res.status(200).json(result.rows[0])
+			} else {
+				res.status(404).json({
+					message: "ERROR - Nothing found"
+				})
+			}
+		})		
+	} else {
+		res.status(401).json({
+			message: 'not authorized!'
+		})
+	}
+})
+
+app.put('/api/guests/:id/edit', function(req, res){
+	console.log("REQUEST PARAMS", req.params);
+	console.log("REQUEST BODY", req.body)
+	if(req.session.email){
+		db.query("UPDATE guests SET name = $1, address = $2, email = $3, phone = $4, guests = $5, owner = $6, confirmation = $7 WHERE id = $8", 
+		[req.body.name, req.body.address, req.body.email, req.body.phone, req.body.guests, req.body.owner, req.body.confirmation, req.params.id], function(err, result){
+			if(err){
+				console.log("PUT ERROR:", err);
+			}
+			res.status(201).json(result);
+		})
+	}
+})
+
+
 app.delete('/api/guests/delete/:id', function(req, res){
 	if(req.session.email){
 		db.query("DELETE FROM guests WHERE id = $1", [req.params.id], function(err, result){
