@@ -43,8 +43,8 @@ var guests = 'CREATE TABLE IF NOT EXISTS guests (' +
 			 'email VARCHAR(255),'                 +
 			 'phone VARCHAR(255),'                 +
 			 'guests INTEGER,'					   +
-			 'confirmation VARCHAR(10) NOT NULL,'  +
-			 'owner VARCHAR(255) NOT NULL'         +
+			 'confirmation VARCHAR(10),'           +
+			 'owner VARCHAR(255)'                  +
 			 ');';
 
 
