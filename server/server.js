@@ -152,6 +152,10 @@ app.post('/api/guests', function(req, res){
 	if(req.session.email){
 		db.query("INSERT INTO guests (name, address, email, phone, guests, owner, confirmation ) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING id",
 		[req.body.name, req.body.address, req.body.email, req.body.phone, req.body.guests, req.body.owner, req.body.confirmation], function(err, result){
+			if(err){
+				console.log('POST ERROR:', err);
+			}
+			console.log('RESULT:', result)
 			res.status(201).json(result.rows[0])
 		})
 	} else {

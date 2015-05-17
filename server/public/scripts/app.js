@@ -25,6 +25,8 @@ $(document).ready(function(){
 
 	//TOGGLE ADD NEW GUEST FORM.
 	$('#new-guest-btn').on('click', function(){
+		$("#presenca").val('SIM');
+		$('#convidados').val('1');
 		$('#edit-btn').hide();
 		$('#submit-btn').show();
 		$('#guest-form').slideToggle();
@@ -39,9 +41,9 @@ $(document).ready(function(){
 			address: $("#endereco").val(),
 			email: $("#email").val(),
 			phone: $("#phone").val(),
-			guests: $("#convidados").val(),
+			guests: $("#convidados").val() || "1",
 			owner: $("#convidado_por").val(),
-			confirmation: $("#presenca").val().toUpperCase()
+			confirmation: $("#presenca").val().toUpperCase() || "SIM"
 		}
 		console.log("guest data:", guestData);
 
@@ -81,9 +83,9 @@ $(document).ready(function(){
 				$("#endereco").val(result.address);
 				$("#email").val(result.email);
 				$("#phone").val(result.phone);
-				$("#convidados").val(result.guests);
+				$("#convidados").val(result.guests || "SIM");
 				$("#convidado_por").val(result.owner),
-				$("#presenca").val(result.confirmation);
+				$("#presenca").val(result.confirmation || "SIM");
 				$('#guest-form').slideToggle();
 
 			},
