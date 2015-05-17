@@ -15,14 +15,14 @@ $(document).ready(function(){
 					results.forEach(function(guest){
 						count++;
 						appendToTable(guest.id, guest, count);
-					})		
+					})
 				}
 			}
-		})	
+		})
 	}
 
 	fetch();
-	
+
 	//TOGGLE ADD NEW GUEST FORM.
 	$('#new-guest-btn').on('click', function(){
 		$('#edit-btn').hide();
@@ -77,7 +77,7 @@ $(document).ready(function(){
 			url: '/api/guests/' + editId,
 			success: function(result){
 				console.log('EDIT RESULT:', result)
-		    	$("#nome").val(result.name);
+		    $("#nome").val(result.name);
 				$("#endereco").val(result.address);
 				$("#email").val(result.email);
 				$("#phone").val(result.phone);
@@ -137,18 +137,23 @@ $(document).ready(function(){
 					success: function(result){
 						console.log("DELETED:", result)
 						fetch()
-					}, 
+					},
 					error: function(err){
 						console.log("Something went wrong on the delete", err);
 					}
-				})	
+				})
 			}
-		}); 
+		});
+	})
+
+	$(document).on('click', '#cancel-btn', function(evnt){
+		evnt.preventDefault();
+		resetForm();
 	})
 	///////////////////////////////////////////////////////////////
 	//                       HELPERS                             //
 	//////////////////////////////////////////////////////////////
-	
+
 	function appendToTable(id, guestData, num){
 		var context = {
 			"SIM": "success",
@@ -179,7 +184,7 @@ $(document).ready(function(){
 			maybe: 0,
 			totalGuests: 0
 		}
-		
+
 		results.forEach(function(guest){
 			confirmation.totalGuests += parseInt(guest.guests);
 			if(guest.confirmation === "SIM"){
@@ -203,7 +208,7 @@ $(document).ready(function(){
 
 	//Clears form inputs and hides form
 	function resetForm(){
-    	$("#nome").val("");
+    $("#nome").val("");
 		$("#endereco").val("");
 		$("#email").val("");
 		$("#phone").val("");
