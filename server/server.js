@@ -132,7 +132,7 @@ app.get('/api/auth/logout', function(req, res){
 
 app.get('/api/guests', function(req, res){
 	if(req.session.email){
-		db.query("SELECT * FROM guests", function(err, result){
+		db.query("SELECT * FROM guests ORDER BY name ASC", function(err, result){
 			if(result && result.rows.length > 0){
 				res.status(200).json(result.rows)
 			} else {
